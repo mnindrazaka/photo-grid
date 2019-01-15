@@ -15,7 +15,7 @@ export default class InputPhoto extends Component<IProps, IState> {
     photo: {
       caption: "",
       url: "",
-      file: {} as File,
+      arrayBuffer: {} as ArrayBuffer,
     },
   }
 
@@ -24,15 +24,23 @@ export default class InputPhoto extends Component<IProps, IState> {
       photo: {
         caption: "",
         url: "",
-        file: {} as File,
+        arrayBuffer: {} as ArrayBuffer,
       },
     })
   }
 
-  public changePhoto(file: File) {
+  public convertFileToArrayBuffer(file: File) {
+    return new Promise<ArrayBuffer>((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.readAsArrayBuffer(file)
+      fileReader.onload = () => resolve(fileReader.result as ArrayBuffer)
+    })
+  }
+
+  public async changePhoto(file: File) {
     const { photo } = this.state
     URL.revokeObjectURL(photo.url)
-    photo.file = file
+    photo.arrayBuffer = await this.convertFileToArrayBuffer(file)
     photo.url = URL.createObjectURL(file)
     this.setState({ photo })
   }

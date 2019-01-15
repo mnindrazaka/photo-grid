@@ -1,7 +1,7 @@
 /// <reference types="react-scripts" />
 
 declare interface IPhoto {
-  file: File
+  arrayBuffer: ArrayBuffer
   url: string
   caption: string
 }

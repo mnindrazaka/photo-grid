@@ -1,3 +1,5 @@
+import { Document, Media, Packer, Paragraph, WidthType } from "docx"
+import { saveAs } from "file-saver"
 import React, { Component } from "react"
 import { Button } from "semantic-ui-react"
 import styled from "styled-components"
@@ -20,11 +22,39 @@ class App extends Component<{}, IState> {
   }
 
   public print() {
-    const printContents = document.getElementById("photoGrid")!.innerHTML
-    const originalContents = document.body.innerHTML
-    document.body.innerHTML = printContents
-    window.print()
-    document.body.innerHTML = originalContents
+    const doc = new Document()
+
+    const column = 2
+    const row = Math.ceil(this.state.photos.length / column)
+    const table = doc.createTable(row, column)
+    table.setWidth(WidthType.PERCENTAGE, "100%")
+
+    let imageIndex = 0
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < column; j++) {
+        if (imageIndex < this.state.photos.length) {
+          const image = Media.addImage(
+            doc,
+            this.state.photos[imageIndex].arrayBuffer,
+            250,
+            250,
+          )
+          table
+            .getCell(i, j)
+            .addContent(image.Paragraph.center())
+            .addContent(
+              new Paragraph(this.state.photos[imageIndex].caption).center(),
+            )
+
+          imageIndex++
+        }
+      }
+    }
+
+    const packer = new Packer()
+    packer.toBlob(doc).then((blob) => {
+      saveAs(blob, "example.docx")
+    })
   }
 
   public render() {
