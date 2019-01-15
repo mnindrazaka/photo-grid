@@ -1,28 +1,51 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import { Button } from "semantic-ui-react"
+import styled from "styled-components"
+import InputPhoto from "./components/InputPhoto"
+import PhotoGrid from "./components/PhotoGrid"
 
-class App extends Component {
-  render() {
+interface IState {
+  photos: IPhoto[]
+}
+
+class App extends Component<{}, IState> {
+  public state: IState = {
+    photos: [],
+  }
+
+  public addPhoto(photo: IPhoto) {
+    const { photos } = this.state
+    photos.push(photo)
+    this.setState({ photos })
+  }
+
+  public print() {
+    const printContents = document.getElementById("photoGrid")!.innerHTML
+    const originalContents = document.body.innerHTML
+    document.body.innerHTML = printContents
+    window.print()
+    document.body.innerHTML = originalContents
+  }
+
+  public render() {
+    console.log(this.state.photos)
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+      <Container>
+        <InputPhoto onSubmit={(photo) => this.addPhoto(photo)} />
+        <div id="photoGrid">
+          <PhotoGrid photos={this.state.photos} />
+        </div>
+        <Button content="Print" color="blue" onClick={() => this.print()} />
+      </Container>
+    )
   }
 }
 
-export default App;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+`
+
+export default App
