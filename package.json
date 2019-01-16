@@ -7,6 +7,8 @@
     "@types/node": "10.12.18",
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
+    "@types/file-saver": "^2.0.0",
+    "@types/styled-components": "^4.1.5",
     "docx": "^4.6.0",
     "file-saver": "^2.0.0",
     "react": "^16.7.0",
@@ -33,8 +35,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/file-saver": "^2.0.0",
-    "@types/styled-components": "^4.1.5",
     "tslint": "^5.12.1",
     "tslint-react": "^3.6.0"
   }
