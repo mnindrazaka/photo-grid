@@ -59,7 +59,6 @@ export default class InputPhoto extends Component<IProps, IState> {
   public render() {
     return (
       <Container>
-        <Image src={this.state.photo.url} size="medium" />
         <FormContainer>
           <Input
             type="file"
@@ -77,6 +76,7 @@ export default class InputPhoto extends Component<IProps, IState> {
             onClick={() => this.submit()}
           />
         </FormContainer>
+        <Image src={this.state.photo.url} size="medium" />
       </Container>
     )
   }
@@ -84,7 +84,6 @@ export default class InputPhoto extends Component<IProps, IState> {
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
   height: 200px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -95,5 +94,5 @@ const FormContainer = styled.div`
   justify-content: space-between;
   flex-direction: column;
   height: 200px;
-  margin-left: 15px;
+  margin-right: 15px;
 `
