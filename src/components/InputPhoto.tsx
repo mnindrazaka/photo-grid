@@ -1,5 +1,12 @@
 import React, { Component } from "react"
-import { Button, Image, Input } from "semantic-ui-react"
+import {
+  Button,
+  Form,
+  Header,
+  Image,
+  Input,
+  TextArea,
+} from "semantic-ui-react"
 import styled from "styled-components"
 
 interface IProps {
@@ -60,15 +67,16 @@ export default class InputPhoto extends Component<IProps, IState> {
     return (
       <Container>
         <FormContainer>
+          <Header>Add Your Photo</Header>
           <Input
             type="file"
-            label="Photo"
             onChange={(event) => this.changePhoto(event.target.files![0])}
           />
-          <Input
-            label="Caption"
+          <TextArea
+            autoHeight
+            placeholder="Enter Your Caption"
             value={this.state.photo.caption}
-            onChange={(event) => this.changeCaption(event.target.value)}
+            onChange={(event) => this.changeCaption(event.currentTarget.value)}
           />
           <Button
             color="green"
@@ -84,15 +92,15 @@ export default class InputPhoto extends Component<IProps, IState> {
 
 const Container = styled.div`
   display: flex;
-  height: 200px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  height: 250px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 `
 
-const FormContainer = styled.div`
+const FormContainer = styled(Form)`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 200px;
+  height: 100%;
   margin-right: 15px;
 `

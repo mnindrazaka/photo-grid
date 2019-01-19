@@ -10,9 +10,9 @@ interface IProps {
 export default class PhotoGrid extends Component<IProps> {
   public renderPhotos() {
     return this.props.photos.map((photo, index) => (
-      <Grid.Column key={index} textAlign="center" verticalAlign="middle">
+      <Grid.Column key={index} textAlign="center" verticalAlign="top">
         <Photo src={photo.url} onClick={() => this.props.onClick(index)} />
-        <Caption content={photo.caption} />
+        <Caption>{photo.caption}</Caption>
       </Grid.Column>
     ))
   }
@@ -33,7 +33,9 @@ const Photo = styled(Image)`
   cursor: pointer;
 `
 
-const Caption = styled(Header)`
+const Caption = styled.p`
   text-align: center;
   font-size: 16px;
+  white-space: pre-line;
+  margin-top: 5px;
 `
