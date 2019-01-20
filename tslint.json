@@ -12,7 +12,8 @@
     },
     "object-literal-sort-keys": false,
     "jsx-no-lambda": false,
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "jsx-no-multiline-js": false
   },
   "rulesDirectory": []
 }

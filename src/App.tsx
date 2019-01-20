@@ -27,6 +27,16 @@ class App extends Component<{}, IState> {
     this.setState({ photos })
   }
 
+  public swapPhoto(draggedPhoto: IPhoto, draggedOverPhoto: IPhoto) {
+    const { photos } = this.state
+    const draggedPhotoIndex = photos.indexOf(draggedPhoto)
+    const draggedOverPhotoIndex = photos.indexOf(draggedOverPhoto)
+
+    photos[draggedPhotoIndex] = draggedOverPhoto
+    photos[draggedOverPhotoIndex] = draggedPhoto
+    this.setState({ photos })
+  }
+
   public render() {
     return (
       <Container>
@@ -42,6 +52,9 @@ class App extends Component<{}, IState> {
         <PhotoGrid
           photos={this.state.photos}
           onClick={(index) => this.removePhoto(index)}
+          onDrop={(draggedPhoto, draggedOverPhoto) =>
+            this.swapPhoto(draggedPhoto, draggedOverPhoto)
+          }
         />
       </Container>
     )
